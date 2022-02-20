@@ -7,25 +7,60 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/"><span>Bookers</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li>
+                <a class="fas fa-home nav-link text-light" href="/users/58815"> Home</a>
+              </li>
+              <li>
+                <a class="fas fa-users nav-link text-light" href="/users"> Users</a>
+              </li>
+              <li>
+                <a class="fas fa-book-open nav-link text-light" href="/books"> Books</a>
+              </li>
+              <li>
+                <a class="fas fa-sign-out-alt nav-link text-light" rel="nofollow" data-method="delete" href="/users/sign_out"> Log out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       <% if user_signed_in? %>
       <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <%= link_to "Sign up", new_user_registration_path %>
+      </li>
+      <li>
+        <%= link_to "Log in", new_user_session_path %>
       </li>
       <% else %>
       <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
       </li>
       <% end %>
+
     </header>
     <%= yield %>
+
+    <footer>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="mx-auto">
+            <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
