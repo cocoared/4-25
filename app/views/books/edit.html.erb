@@ -1,12 +1,26 @@
-<h2>Editing Book</h2>
-<%= form_with(model:Book.new, local: true, method: :patch) do |f| %>
-  <label for="book_title">Title</label>
-  <%= f.text_field :title, autofocus: true, id:"book_title"%>
-  <label for="book_opinion">Opinion</label>
-  <%= f.text_area :body, autofocus:true, id:"book_body" %>
-  <%= f.submit "Update Book" %>
-
-  <%=link_to "Show", books_show_path(@book.id) %>
-  |
-  <%=link_to "Back", books_index_path(@book.id) %>
+<% if @book.errors.any? %>
+<%= @book.errors.count %>error
+<ul>
+  <% @book.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+</ul>
 <% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h2>Editing Book</h2>
+      <%= form_with(model:@book, local: true, method: :patch) do |f| %>
+        <label for="book_title">Title</label><br>
+        <%= f.text_field :title, autofocus: true, id:"book_title"%><br>
+        <label for="book_opinion">Opinion</label><br>
+        <%= f.text_area :body, autofocus:true, id:"book_body" %><br>
+        <%= f.submit "Update Book" %><br><br>
+        <%=link_to "Show", book_path(@book.id) %>
+        |
+        <%=link_to "Back", books_path %>
+      <% end %>
+    </div>
+  </div>
+</div>

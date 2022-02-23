@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <title>Bookers2</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -19,47 +20,68 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+          <div button class="collapse navbar-collapse" id="navbarNavDropdown">
+           <ul class="navbar-nav ml-auto">
+               <% if user_signed_in? %>
               <li>
-                <a class="fas fa-home nav-link text-light" href="/users/58815"> Home</a>
+                <%= link_to user_path(current_user.id) do %>
+                 <span class="fas fa-home home-btn text-light: :before"></span>
+                 Home
+                <% end %>
+              </li>
               </li>
               <li>
-                <a class="fas fa-users nav-link text-light" href="/users"> Users</a>
+                <%= link_to("/users") do %>
+                 <span class="fas fa-users users-btn text-light: :before"></span>
+                 Users
+                <% end %>
               </li>
               <li>
-                <a class="fas fa-book-open nav-link text-light" href="/books"> Books</a>
+                <%= link_to books_path do %>
+                 <span class="fas fa-book-open book-open-btn text-light: :before"></span>
+                 Books
+                <% end %>
               </li>
               <li>
-                <a class="fas fa-sign-out-alt nav-link text-light" rel="nofollow" data-method="delete" href="/users/sign_out"> Log out</a>
+                <%= link_to("/users/sign_out",method: :delete) do %>
+                 <span class="fas fa-sign-out-alt sign-out-alt-btn text-light: :before"></span>
+                 Log out
+                <% end %>
               </li>
+              <% else %>
+              <li>
+                <%= link_to("/") do %>
+                 <span class="fas fa-home home-btn text-light: :before"></span>
+                 Home
+                <% end %>
+              </li>
+              <li>
+                <%= link_to("/home/about") do %>
+                 <span class="fas fa-link link-btn text-light: :before"></span>
+                About
+                <% end %>
+              </li>
+              <li>
+                <%= link_to("/users/sign_up") do %>
+                 <span class="fas fa-user-plus user-plus-btn text-light: :before"></span>
+                Sign up
+                <% end %>
+              </li>
+              <li>
+                <%= link_to("/users/sign_in") do %>
+                 <span class="fas fa-sign-in-alt sign-in-alt-btn text-light: :before"></span>
+                Log in
+                <% end %>
+              </li>
+             <% end %>
             </ul>
           </div>
         </div>
       </nav>
-      <% if user_signed_in? %>
-      <li>
-        <%= link_to 'User', new_user_path %>
-      </li>
-      <li>
-        <%= link_to 'Books', new_book_path %>
-      </li>
-      <li>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      </li>
-      <% else %>
-      <li>
-        <%= link_to 'Books', new_book_path %>
-      </li>
-      <li>
-        <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Log in", new_user_session_path %>
-      </li>
-      <% end %>
-
     </header>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
     <%= yield %>
 
     <footer>
