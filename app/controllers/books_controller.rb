@@ -46,7 +46,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     if @book.user == current_user
     else
-    　redirect_to books_path
+     redirect_to books_path
     end
   end
 
